@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControllerX : MonoBehaviour
 {
+
+
     public bool gameOver;
 
     public float floatForce;
@@ -17,6 +19,9 @@ public class PlayerControllerX : MonoBehaviour
     public AudioClip moneySound;
     public AudioClip explodeSound;
 
+    [Header("Noname Added")]
+    [SerializeField] private float m_maxHeightRatio = 0.8f;
+    [SerializeField] private float m_minHeightRatio = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +39,42 @@ public class PlayerControllerX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        ClampPosWithForuce();
+
         // While space is pressed and player is low enough, float up
         if (Input.GetKeyDown(KeyCode.Space) && !gameOver)
         {
             //playerRb.AddForce(Vector3.up * floatForce);
             playerRb.AddForce(Vector3.up * floatForce, ForceMode.Impulse);
         }
+    }
+
+
+    void ClampPosWithForuce()
+    {
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(transform.position);
+        bool isOutside = viewportPos.y > m_maxHeightRatio || viewportPos.y < m_minHeightRatio;
+        if (viewportPos.y > m_maxHeightRatio)
+        {
+            viewportPos.y = m_maxHeightRatio;
+            Vector3 clampWorldPos = Camera.main.ViewportToWorldPoint(viewportPos);
+            transform.position = new Vector3(transform.position.x, clampWorldPos.y, transform.position.z);
+            playerRb.AddForce(Vector3.down * 0.5f, ForceMode.Impulse);
+        }
+        else if (viewportPos.y < m_minHeightRatio)
+        {
+            viewportPos.y = m_minHeightRatio;
+            Vector3 clampWorldPos = Camera.main.ViewportToWorldPoint(viewportPos);
+            transform.position = new Vector3(transform.position.x, clampWorldPos.y, transform.position.z);
+            playerRb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        }
+
+        if (isOutside)
+        {
+            return;
+        }
+
     }
 
     private void OnCollisionEnter(Collision other)
