@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Noname.Extentions;
 using Noname.SceneManage;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,20 +25,26 @@ namespace Unit03
             Instance = this;
 
             IsGameOver = false;
-            
+
             m_targetScene.UpdateTargetScene(m_targetScene.TargetScene.SceneAsset);
         }
 
+
+        void Start()
+        {
+            if (!m_targetScene.TargetScene.IsLoaded())
+                m_targetScene.TargetScene.AsyncLoadTarget().Forget();
+        }
         private void Update()
         {
-            if(IsGameOver)
+            if (IsGameOver)
             {
                 m_gameOverPanel.SetActive(true);
             }
             else
             {
                 m_gameOverPanel.SetActive(false);
-            
+
             }
 
         }
@@ -56,7 +63,7 @@ namespace Unit03
         {
             m_targetScene.TargetScene.AsyncUnloadTarget().Forget();
         }
-        
+
         [ContextMenu("Load Scene")]
         void LoadScene()
         {
