@@ -23,7 +23,8 @@ namespace Noname.SceneManage
 
         public static async UniTask AsyncLoadTarget(this GetherableScene scene, LoadParameters? loadParameters = null, IProgress<float> progress = null)
         {
-            
+            await UniTask.DelayFrame(10);
+
             try
             {
                 var loadpara = loadParameters ?? LoadParameters.Default;
