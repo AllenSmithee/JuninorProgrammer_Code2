@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Noname.Extentions;
 using Noname.SceneManage;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,6 +37,12 @@ namespace Unit03
                 m_targetScene.TargetScene.AsyncLoadTarget().Forget();
         }
 
+
+        void Start()
+        {
+            if (!m_targetScene.TargetScene.IsLoaded())
+                m_targetScene.TargetScene.AsyncLoadTarget().Forget();
+        }
         private void Update()
         {
             if (IsGameOver)
