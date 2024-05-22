@@ -14,6 +14,7 @@ namespace Challenge4
         void Start()
         {
             enemyRb = GetComponent<Rigidbody>();
+            playerGoal = GameObject.Find("Player Goal");
         }
 
         // Update is called once per frame

@@ -20,13 +20,19 @@ namespace Challenge4
 
         public GameObject player;
 
+        void Start()
+        {
+            SpawnEnemyWave(waveCount);
+        }
+
         // Update is called once per frame
         void Update()
         {
-            enemyCount = GameObject.FindGameObjectsWithTag("Powerup").Length;
+            enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
             if (enemyCount == 0)
             {
+                waveCount++;
                 SpawnEnemyWave(waveCount);
             }
 
@@ -52,12 +58,13 @@ namespace Challenge4
             }
 
             // Spawn number of enemy balls based on wave number
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < enemiesToSpawn; i++)
             {
-                Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+                var target = Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+                target.GetComponent<EnemyX>().speed *= waveCount;
             }
 
-            waveCount++;
+
             ResetPlayerPosition(); // put player back at start
 
         }
