@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - Money
+  - Bomb
+  - Background
+  - PowerUp
+  - Enemy
   layers:
   - Default
   - TransparentFX

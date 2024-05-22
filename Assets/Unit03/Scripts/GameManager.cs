@@ -27,14 +27,16 @@ namespace Unit03
             IsGameOver = false;
 
             m_targetScene.UpdateTargetScene(m_targetScene.TargetScene.SceneAsset);
-        }
 
+
+        }
 
         void Start()
         {
             if (!m_targetScene.TargetScene.IsLoaded())
                 m_targetScene.TargetScene.AsyncLoadTarget().Forget();
         }
+
         private void Update()
         {
             if (IsGameOver)
