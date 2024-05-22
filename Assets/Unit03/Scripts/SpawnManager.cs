@@ -18,9 +18,6 @@ namespace Unit03
         [SerializeField] Vector3 m_spawnPos = new Vector3(25, 0, 0);
 
         [SerializeField] Transform m_prefabContainer;
-        private float m_startDelay = 1.0f;
-        private float m_repeatRate = 2.0f;
-
         private CancellationTokenSource m_cts;
 
 

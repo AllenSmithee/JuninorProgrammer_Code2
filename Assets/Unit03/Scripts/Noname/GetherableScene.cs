@@ -53,10 +53,9 @@ namespace Noname.SceneManage
                 return ret;
             }
         }
-        public readonly override string ToString()
-        {
-            return $"{SceneName}";
-        }
+
+
+
 
         public void Dispose()
         {

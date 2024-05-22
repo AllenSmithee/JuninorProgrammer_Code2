@@ -41,7 +41,7 @@ namespace Unit03
             }
         }
 
-        internal event System.Action OnGameOver;
+
 
         // Start is called before the first frame update
         void Start()

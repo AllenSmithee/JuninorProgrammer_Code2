@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SpinObjectsX : MonoBehaviour
+namespace Challenge3
 {
-    public float spinSpeed;
-
-    // Update is called once per frame
-    void Update()
+    public class SpinObjectsX : MonoBehaviour
     {
-        transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
+        public float spinSpeed;
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
+        }
     }
 }
