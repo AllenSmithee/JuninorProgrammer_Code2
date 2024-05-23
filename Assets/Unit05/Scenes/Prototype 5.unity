@@ -2078,7 +2078,7 @@ MonoBehaviour:
   m_gameOverText: {fileID: 2108048178}
   m_difficultySelectPanel: {fileID: 628538461}
   m_spawnRate: 1
-  m_keepSpawningOnGameOver: 1
+  m_keepSpawningOnGameOver: 0
 --- !u!4 &1828892094
 Transform:
   m_ObjectHideFlags: 0
