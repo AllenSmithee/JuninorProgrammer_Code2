@@ -24,15 +24,59 @@ namespace Challenge5
         private float minValueX = -3.75f; //  x value of the center of the left-most square
         private float minValueY = -3.75f; //  y value of the center of the bottom-most square
 
-        // Start the game, remove title screen, reset score, and adjust spawnRate based on difficulty button clicked
-        public void StartGame()
+        //Noname added
+        [Header("Noname added")]
+        [SerializeField] private TextMeshProUGUI m_timeText;
+        private string m_scoreTextFormat = "Score : {0}";
+        private string m_timeTextFormat = "Time : {0}";
+        private float m_timeSetting = 60.0f;
+        [SerializeField] private TextMeshProUGUI m_healthText;
+        public int Health { get; set; }
+
+        [SerializeField] private GameObject m_playerTopUI;
+        void Update()
         {
-            spawnRate /= 5;
+            if (!isGameActive)
+            {
+                return;
+            }
+
+            UpdateScoreUI();
+            UpdateTimeUI();
+            UpdateHealthUI();
+            if(m_timeSetting <= 0 || Health <= 0)
+            {
+                GameOver();
+            }
+        }
+
+        void UpdateScoreUI()
+        {
+            scoreText.text = string.Format(m_scoreTextFormat, score);
+        }
+        void UpdateTimeUI()
+        {
+            m_timeSetting -= Time.deltaTime;
+            m_timeText.text = string.Format(m_timeTextFormat, m_timeSetting.ToString("F1"));
+        }
+        void UpdateHealthUI()
+        {
+            m_healthText.text = string.Format("Health : {0}", Health);
+        }
+
+        // Start the game, remove title screen, reset score, and adjust spawnRate based on difficulty button clicked
+        public void StartGame(int difficultyValue)
+        {
+            spawnRate /= difficultyValue;
             isGameActive = true;
             StartCoroutine(SpawnTarget());
+            m_timeSetting = 60.0f;
+            m_timeText.text = string.Format(m_timeTextFormat, m_timeSetting.ToString("F1"));
+            Health = 5;
             score = 0;
-            UpdateScore(0);
-            titleScreen.SetActive(false);
+            UpdateScore(score);
+            titleScreen.gameObject.SetActive(false);
+            m_playerTopUI.SetActive(true);
         }
 
         // While game is active spawn a random target
@@ -72,14 +116,13 @@ namespace Challenge5
         public void UpdateScore(int scoreToAdd)
         {
             score += scoreToAdd;
-            scoreText.text = "score";
         }
 
         // Stop game, bring up game over text and restart button
         public void GameOver()
         {
             gameOverText.gameObject.SetActive(true);
-            restartButton.gameObject.SetActive(false);
+            restartButton.gameObject.SetActive(true);
             isGameActive = false;
         }
 

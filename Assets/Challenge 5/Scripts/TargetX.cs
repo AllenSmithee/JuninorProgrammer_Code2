@@ -29,7 +29,7 @@ namespace Challenge5
         }
 
         // When target is clicked, destroy it, update score, and generate explosion
-        private void OnMouseEnter()
+        private void OnMouseDown()
         {
             if (gameManagerX.isGameActive)
             {
@@ -37,6 +37,11 @@ namespace Challenge5
                 gameManagerX.UpdateScore(pointValue);
                 Explode();
             }
+            if (gameObject.CompareTag("Bad"))
+            {
+                gameManagerX.Health--;
+            }
+
 
         }
 
@@ -61,11 +66,9 @@ namespace Challenge5
         // If target that is NOT the bad object collides with sensor, trigger game over
         private void OnTriggerEnter(Collider other)
         {
-            Destroy(gameObject);
-
-            if (other.gameObject.CompareTag("Sensor") && !gameObject.CompareTag("Bad"))
+            if (gameObject.CompareTag("Bad") && other.CompareTag("Sensor"))
             {
-                gameManagerX.GameOver();
+                Destroy(gameObject);
             }
 
         }

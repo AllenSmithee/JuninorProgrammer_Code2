@@ -25,7 +25,19 @@ namespace Challenge5
         void SetDifficulty()
         {
             Debug.Log(button.gameObject.name + " was clicked");
-            gameManagerX.StartGame();
+            gameManagerX.StartGame(difficulty);
+            switch (difficulty)
+            {
+                case 1:
+                    gameManagerX.Health = 5;
+                    break;
+                case 2:
+                    gameManagerX.Health = 3;
+                    break;
+                case 3:
+                    gameManagerX.Health = 1;
+                    break;
+            }
         }
 
 
