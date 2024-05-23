@@ -27,8 +27,8 @@ namespace Unit05
                 GameManager.Instance.SpawnRate = m_difficulty switch
                 {
                     Difficulty.Easy => 1.0f,
-                    Difficulty.Medium => 0.8f,
-                    Difficulty.Hard => 0.5f,
+                    Difficulty.Medium => 0.5f,
+                    Difficulty.Hard => 0.2f,
                     _ => 1.0f
                 };
 
